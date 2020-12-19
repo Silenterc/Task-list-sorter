@@ -30,7 +30,7 @@ public class UI {
             }
             if(command.equals("add")){
                 int dur =-1;
-                int urg = -1;
+                int urg = 6;
                 System.out.println("What is the name of the task?");
                 String name = scanner.nextLine();
                 System.out.println("What is the approximate time to complete the task in minutes?(insert a numerical value only)");
@@ -80,14 +80,29 @@ public class UI {
                 
             }
             if(command.equals("list")){
+                if(this.list.isEmpty()){
+                    System.out.println("There are no tasks available.");
+                } else{
+                    System.out.println(getSortOptions());
                 
-                System.out.println("How would you like to sort your list?" + "\n" + "If by the time you have added the tasks to your list type : '1'"
-                + "\n"+ "If by the time the tasks take to complete type: '2'");
-                String input = scanner.nextLine();
-                if(Integer.valueOf(input) == 1){
-                    this.list.printSortedByTimeAdded();
-                } else if(Integer.valueOf(input) == 2){
-                    this.list.printSortedByDuration();
+                    
+                    String input = scanner.nextLine();
+                    if(!(isInteger(input))){
+                        System.out.println("Please input a number.");
+                        continue;
+                    }
+                    if(Integer.valueOf(input) == 1){
+                        this.list.printSortedByTimeAdded();
+                    } else if(Integer.valueOf(input) == 2){
+                        this.list.printSortedByDuration();
+                    } else if(Integer.valueOf(input) == 3){
+                        this.list.printSortedByUrgency();
+                    } else if(Integer.valueOf(input) == 4){
+                        this.list.printAlphabetically();
+                       
+                    } else{
+                        System.out.println("Use a number between 1 and 4.");
+                    }
                 }
                 
                 
@@ -129,6 +144,11 @@ public class UI {
         System.out.println("To sort by the time to complete type: '2'");
         System.out.println("To sort by urgency type: '3' ");
         System.out.println("To sort alphabetically type: '4'");
+        
+    }
+    public static String getSortOptions(){
+        return "How would you like to sort your list?" + "\n" + "If by the time you have added the tasks to your list type : '1'"
+               + "\n"+ "If by the time the tasks take to complete type: '2'" + "\n" + "If by the urgency of the tasks type: '3'" + "\n" + "If alphabetically type: '4'";
         
     }
    

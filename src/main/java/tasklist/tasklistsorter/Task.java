@@ -12,14 +12,14 @@ package tasklist.tasklistsorter;
  */
 
 public class Task   {
-    private String name;
+    public String name;
     public int timeToComplete;
-    private int urgency;
+    public int urgency;
     public int count;
     public Task(String name){
         this.name = name;
         this.timeToComplete = -1;
-        this.urgency = -1;
+        this.urgency = 6;
         this.count = 0;
     }
     public String getName(){
@@ -70,11 +70,11 @@ public class Task   {
     
     @Override
     public String toString(){
-        if(this.urgency >= 0 && this.timeToComplete >= 0){
+        if(this.urgency >= 0 && this.urgency <= 5 && this.timeToComplete >= 0){
             return this.name + ", which takes " + getMinutes(this.timeToComplete) + " and is at urgency " + this.urgency;
-        } else if(this.urgency>= 0 && this.timeToComplete<0){
-            return this.name + "and is at urgecy " + this.urgency;
-        } else if(this.timeToComplete>= 0 && this.urgency<0){
+        } else if(this.urgency>= 0 && this.urgency<=5 && this.timeToComplete<0){
+            return this.name + " which is at urgency " + this.urgency;
+        } else if(this.timeToComplete>= 0 && (this.urgency<0 || this.urgency > 5)){
             return this.name + ", which takes " + getMinutes(this.timeToComplete);
         } else{
             return this.name;

@@ -65,16 +65,36 @@ public class TaskList {
             }
             
         });
-        int i = 1;
-        for(Task t : this.list){
-            System.out.println( i + ", " + t);
-            i++;
-                    
-           
-        }
+        this.printList();
        
         
     }
+    public void printAlphabetically(){
+        Collections.sort(this.list, new Comparator<Task>(){
+            //ascending sort
+            public int compare(Task first, Task second){
+                return first.getName().compareTo(second.getName());
+            }
+            
+        });
+        this.printList();
+       
+    }
+    
+    
+    public void printSortedByUrgency(){
+        Collections.sort(this.list, new Comparator<Task>(){
+            //ascending sort
+            public int compare(Task first, Task second){
+                return Integer.valueOf(first.urgency).compareTo(second.urgency);
+            }
+            
+        });
+        this.printList();
+       
+        
+    }
+    
     
     public boolean isEmpty(){
         if(this.list.isEmpty()){
@@ -82,5 +102,15 @@ public class TaskList {
         }
         return false;
     }
+    public void printList(){
+        int i = 1;
+        for(Task t : this.list){
+            System.out.println( i + ", " + t);
+            i++;
+                    
+           
+        }
+    }
     
 }
+
