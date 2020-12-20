@@ -17,6 +17,7 @@ public class UI {
         this.scanner = new Scanner (System.in);
         this.list = new TaskList();
     }
+    //This starts the UI
     public void start(){
         int i = 1;
                 
@@ -29,23 +30,30 @@ public class UI {
                 break;
             }
             if(command.equals("add")){
-                int dur =-1;
+                //Setting the duration and urgency variables to an impossible value so 
+                //if the user does not input their proper value the program will ignore them and
+                //the sorting algorithm will put them last
+                int dur = 999999999;
                 int urg = 6;
                 System.out.println("What is the name of the task?");
                 String name = scanner.nextLine();
                 System.out.println("What is the approximate time to complete the task in minutes?(insert a numerical value only)");
                 String duration = scanner.nextLine();
+                //Checks whether the input is a number above 0 and then sets the dur variable to the inputted value
                 if(isInteger(duration)&& Integer.valueOf(duration)>= 0){
                     dur = Integer.valueOf(duration);
                     
                 }
                 System.out.println("How urgent is the task on scale of 1-5?" + "\n" + "1 is not very urgent, 5 is very urgent");
                 String urgency = scanner.nextLine();
+                //If the input is not a number it keeps the urg variable at an impossible value
                 if(!(isInteger(urgency))){
-                    urg = -1;
+                    urg = 6;
+                // If the input is between 1 and 5, it sets the urg variable to the inputted value
                 }else if(Integer.valueOf(urgency)>= 1 && Integer.valueOf(urgency)<=5){
                     urg = Integer.valueOf(urgency);
                 } 
+                //Creating a new task and then printing the task 
                 Task task = new Task(name);
                 task.setTimeToComplete(dur);
                 task.setUrgency(urg);
@@ -60,13 +68,17 @@ public class UI {
                     System.out.println("There are no tasks on your list");
                 } else{
                     System.out.println("Those tasks are on your list: ");
+                    //Shows available tasks in the order they were added in
                     this.list.printSortedByTimeAdded();
                     System.out.println("Please enter the number of the task you would like to remove: ");
                     String removedNum = scanner.nextLine();
+                    //Creating a variable and setting its value to an impossible value
                     int numToRemove = -1;
+                   //Checks whether the input is a number, then sets the numToRemove variable to inputted value
                     if(isInteger(removedNum)){
                         numToRemove = Integer.valueOf(removedNum);
                     }
+                    //If a task with the corresponding input as its number is on the list, it gets removed
                     if(numberIsOnTheList(numToRemove, this.list)){
                         this.list.remove(numToRemove);
                     }
@@ -79,7 +91,7 @@ public class UI {
                 printCommands();
                 
             }
-            if(command.equals("list")){
+            if(command.equals("list")||command.equals("sort")){
                 if(this.list.isEmpty()){
                     System.out.println("There are no tasks available.");
                 } else{
@@ -87,6 +99,7 @@ public class UI {
                 
                     
                     String input = scanner.nextLine();
+                    // Checks whether the input is a number and if not, it prints an error message
                     if(!(isInteger(input))){
                         System.out.println("Please input a number.");
                         continue;
@@ -101,6 +114,7 @@ public class UI {
                         this.list.printAlphabetically();
                        
                     } else{
+                        //Incase the input is a different number than 1-4
                         System.out.println("Use a number between 1 and 4.");
                     }
                 }
@@ -135,7 +149,7 @@ public class UI {
     public static void printCommands(){
         System.out.println("To add a task type: 'add'");
         System.out.println("To remove a task type: 'remove'");
-        System.out.println("To see and sort the tasks type: 'list'");
+        System.out.println("To see and sort the tasks type: 'sort' or 'list'");
         System.out.println("To leave this program type: 'quit' or 'leave'");
         System.out.println("To get help with these commands type:'help'");
     }

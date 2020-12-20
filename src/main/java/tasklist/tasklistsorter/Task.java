@@ -18,7 +18,7 @@ public class Task   {
     public int count;
     public Task(String name){
         this.name = name;
-        this.timeToComplete = -1;
+        this.timeToComplete = 999999999;
         this.urgency = 6;
         this.count = 0;
     }
@@ -70,11 +70,11 @@ public class Task   {
     
     @Override
     public String toString(){
-        if(this.urgency >= 0 && this.urgency <= 5 && this.timeToComplete >= 0){
+        if(this.urgency >= 0 && this.urgency <= 5 && this.timeToComplete >= 0 && !(this.timeToComplete == 999999999)){
             return this.name + ", which takes " + getMinutes(this.timeToComplete) + " and is at urgency " + this.urgency;
-        } else if(this.urgency>= 0 && this.urgency<=5 && this.timeToComplete<0){
+        } else if(this.urgency>= 0 && this.urgency<=5 && (this.timeToComplete<0 || this.timeToComplete == 999999999)){
             return this.name + " which is at urgency " + this.urgency;
-        } else if(this.timeToComplete>= 0 && (this.urgency<0 || this.urgency > 5)){
+        } else if(this.timeToComplete>= 0 && !(this.timeToComplete == 999999999) && (this.urgency<0 || this.urgency > 5)){
             return this.name + ", which takes " + getMinutes(this.timeToComplete);
         } else{
             return this.name;

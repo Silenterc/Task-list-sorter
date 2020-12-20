@@ -40,7 +40,7 @@ public class TaskList {
     public int getSize(){
         return this.list.size();
     }
-    
+    //Sorts the list chronologically(task added first is first etc.)
     public void sortbyTimeAdded(){
         Collections.sort(this.list, new Comparator<Task>(){
             //ascending sort
@@ -50,6 +50,7 @@ public class TaskList {
             
         });
     }
+    //Prints the chronologically sorted list
     public void printSortedByTimeAdded(){
         int i = 1;
         this.sortbyTimeAdded();
@@ -57,6 +58,7 @@ public class TaskList {
             System.out.println(i + ", " + t);
         }
     }
+    //Prints the list sorted by the duration of the tasks(tasks without a disclosed duration are put last)
     public void printSortedByDuration(){
         Collections.sort(this.list, new Comparator<Task>(){
             //ascending sort
@@ -69,6 +71,7 @@ public class TaskList {
        
         
     }
+    //Prints the list in an alphabetical order
     public void printAlphabetically(){
         Collections.sort(this.list, new Comparator<Task>(){
             //ascending sort
@@ -81,7 +84,7 @@ public class TaskList {
        
     }
     
-    
+    //Prints the list sorted by the urgency of the tasks(tasks without a disclosed urgency are put last)
     public void printSortedByUrgency(){
         Collections.sort(this.list, new Comparator<Task>(){
             //ascending sort
@@ -95,13 +98,14 @@ public class TaskList {
         
     }
     
-    
+    // Checks whether the list is empty
     public boolean isEmpty(){
         if(this.list.isEmpty()){
             return true;
         }
         return false;
     }
+    // Prints the list with the appropriate numbering starting from 1
     public void printList(){
         int i = 1;
         for(Task t : this.list){
